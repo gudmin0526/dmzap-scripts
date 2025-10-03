@@ -28,7 +28,5 @@ reclaim_limit="10"
 # only when victim_selection_method="3" is set)
 q_cap="30"
 
-echo "0 `blockdev --getsize ${device}` zap ${device} ${conv} ${op_rate}
-${class_0_cap} ${class_0_optimal} ${victim_selection_method} ${reclaim_limit}
-${q_cap}" | sudo dmsetup create dmzap-test-target
+echo "0 `blockdev --getsize ${device}` zap ${device} ${conv} ${op_rate} ${class_0_cap} ${class_0_optimal} ${victim_selection_method} ${reclaim_limit} ${q_cap}" | sudo dmsetup create dmzap-test-target
 

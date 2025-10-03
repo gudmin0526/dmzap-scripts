@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd ../fxmark/bin; vi run-fxmark.py
+vi /home/femu/fxmark/bin/run-fxmark.py

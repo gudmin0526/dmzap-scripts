@@ -7,6 +7,7 @@ cleanup() {
     echo "--- Cleaning up background processes and saving trace ---"
     if kill -0 $BLKZONE_PID 2>/dev/null; then kill $BLKZONE_PID; fi
     if kill -0 $IOSTAT_PID 2>/dev/null; then kill $IOSTAT_PID; fi
+	if kill -0 $DMESG_PID 2>/dev/null; then kill $DMESG_PID; fi
 
     echo 0 | sudo tee /sys/kernel/debug/tracing/tracing_on > /dev/null
     cat /sys/kernel/debug/tracing/trace > "/home/femu/logs/ftrace_monitor.log"
@@ -29,6 +30,10 @@ while true; do
     sleep 2
 done &
 BLKZONE_PID=$!
+
+# --- dmesg 스트리밍을 백그라운드에서 실행 ---
+(dmesg -w | grep dmzap) >> /home/femu/logs/dmesg_monitor.log &
+DMESG_PID=$!
 
 # --- iostat 루프를 백그라운드에서 실행 ---
 while true; do
